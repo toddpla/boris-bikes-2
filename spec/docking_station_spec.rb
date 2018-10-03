@@ -13,27 +13,27 @@ describe DockingStation do
     end
   end
 
+  describe '#dock' do
+    it 'should dock bike' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.bikes).to eq([bike])
+    end
 
-  it 'should dock bike' do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.bike).to eq(bike)
+    it 'should show bikes' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.bikes).to eq([bike])
+    end
+
+    it "raises an error if no more bikes" do
+      expect { subject.release_bike }.to raise_error 'No bikes available'
+    end
+
+    it "raises an error if docking station is full" do
+      bike = Bike.new
+      20.times { subject.dock(bike) }
+      expect { subject.dock(bike) }.to raise_error 'Docking station full'
+    end
   end
-
-  it 'should show bikes' do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.bike).to eq(bike)
-  end
-
-  it "raises an error if no more bikes" do
-    expect { subject.release_bike }.to raise_error 'No bikes available'
-  end
-
-  it "raises an error if docking station is full" do
-    bike = Bike.new
-    subject.dock(bike)
-    expect { subject.dock(bike) }.to raise_error 'Docking station full'
-  end
-
 end
