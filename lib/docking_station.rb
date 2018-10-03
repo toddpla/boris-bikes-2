@@ -13,7 +13,9 @@ class DockingStation
 
   def release_bike
     fail 'No bikes available' if empty?
-    @bikes.pop
+    @bikes.each do |bike|
+      return bike if bike.working?
+    end
   end
 
   def dock(bike)
